@@ -112,7 +112,10 @@ body {
 }
 
 .operator,
-.number {
+.number,
+.equal,
+.clear,
+.backspace {
     width: 45px;
     height: 45px;
     border-radius: 50%;
@@ -187,14 +190,20 @@ body {
     box-shadow: var(--color-equal-shadow);
 }
 
-.operator {
+.operator,
+.clear,
+.backspace {
     color: var(--color-orange);
 }
 
 .operator:active,
 .number:active,
 .operator:hover,
-.number:hover {
+.number:hover
+.clear:active,
+.clear:hover,
+.backspace:active,
+.backspace:hover {
     box-shadow: var(--color-inset-shadow);
 }
 
