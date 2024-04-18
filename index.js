@@ -104,6 +104,7 @@ function operate(a, b, operator) {
   a = +a;
   b = +b;
 
+
   if (operator === "+") {
     return add(a, b);
   } else if (operator === "-") {
@@ -140,9 +141,9 @@ function operate(a, b, operator) {
 // });
 
 let operations = {
-  firstNumber: null,
-  operator: null,
-  secondNumber: null
+  firstNumber: 0,
+  operator: "+",
+  secondNumber: 0
 }
 
 // numbers.forEach(number => number.addEventListener('click', () => {
@@ -164,11 +165,30 @@ let operations = {
 //     operations.secondNumber = number.id;
 // }));
 
+
 buttons.forEach(button => button.addEventListener('click', () => {
-    if (button.classList.contains("number")) {
-      document.getElementById("display").innerHTML = button.id;
-      operations.firstNumber = button.id;
+    for (i=3; i<14; i++) {
+      if (button.classList.contains("operator")) {
+        buttons[i].classList.toggle("secondNumberClicked");
+      }
+    }
+
+
+
+    if (button.classList.contains("secondNumberClicked")) {
+      if (document.getElementById("display").innerHTML === "Calculator" || !Number.isInteger(+document.getElementById("display").innerHTML) || buttons[18].classList.contains("smallBugFixer")) {
+        document.getElementById("display").innerHTML = "";
+        button.classList.remove("smallBugFixer");
+      }
+      document.getElementById("display").innerHTML += button.id;
       operations.secondNumber = button.id;
+    } else if (button.classList.contains("number")) {
+      if (document.getElementById("display").innerHTML === "Calculator" || !Number.isInteger(+document.getElementById("display").innerHTML) || buttons[18].classList.contains("smallBugFixer")) {
+        document.getElementById("display").innerHTML = "";
+        button.classList.remove("smallBugFixer");
+      }
+      document.getElementById("display").innerHTML += button.id;
+      operations.firstNumber = button.id;
     } else if (button.classList.contains("operator")) {
       document.getElementById("display").innerHTML = button.id;
       operations.operator = button.id;
@@ -185,6 +205,7 @@ buttons.forEach(button => button.addEventListener('click', () => {
     }
 
     if (button.classList.contains("equal")) {
+      button.classList.add("smallBugFixer");
       document.getElementById("display").innerHTML = operate(operations.firstNumber, operations.secondNumber, operations.operator);
       console.log(operate(operations.firstNumber, operations.secondNumber, operations.operator));
       // console.log("Hello!");
@@ -215,14 +236,14 @@ buttons.forEach(button => button.addEventListener('click', () => {
 // }
 
 
-const myButton = document.querySelector(".fa-bars");
-const someObject = { aProperty: "Data" };
+// const myButton = document.querySelector(".fa-bars");
+// const someObject = { aProperty: "Data" };
 
-myButton.addEventListener("click", () => {
-  console.log(someObject.aProperty); // Expected Value: 'Data'
+// myButton.addEventListener("click", () => {
+//   console.log(someObject.aProperty); // Expected Value: 'Data'
 
-  someObject.aProperty = "Data Again"; // Change the value
-});
+//   someObject.aProperty = "Data Again"; // Change the value
+// });
 
 // setInterval(() => {
 //   if (typeof operations.firstNumber === "string" && typeof operations.operator === "string" && typeof operations.secondNumber === "string") {
