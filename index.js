@@ -178,17 +178,21 @@ buttons.forEach(button => button.addEventListener('click', () => {
     if (button.classList.contains("secondNumberClicked")) {
       if (document.getElementById("display").innerHTML === "Calculator" || !Number.isInteger(+document.getElementById("display").innerHTML) || buttons[18].classList.contains("smallBugFixer")) {
         document.getElementById("display").innerHTML = "";
-        button.classList.remove("smallBugFixer");
+        buttons[18].classList.remove("smallBugFixer");
       }
+
       document.getElementById("display").innerHTML += button.id;
-      operations.secondNumber = button.id;
+      operations.secondNumber += button.id;
+
     } else if (button.classList.contains("number")) {
       if (document.getElementById("display").innerHTML === "Calculator" || !Number.isInteger(+document.getElementById("display").innerHTML) || buttons[18].classList.contains("smallBugFixer")) {
         document.getElementById("display").innerHTML = "";
-        button.classList.remove("smallBugFixer");
+        buttons[18].classList.remove("smallBugFixer");
       }
+
       document.getElementById("display").innerHTML += button.id;
-      operations.firstNumber = button.id;
+      operations.firstNumber += button.id;
+
     } else if (button.classList.contains("operator")) {
       document.getElementById("display").innerHTML = button.id;
       operations.operator = button.id;
@@ -198,10 +202,19 @@ buttons.forEach(button => button.addEventListener('click', () => {
       let displayNumber = document.getElementById("display").innerHTML;
       let removedNumber = displayNumber.substring(0, displayNumber.length-1);
       document.getElementById("display").innerHTML = removedNumber;
+      if (removedNumber.length === 0) {
+        document.getElementById("display").innerHTML = "";
+        operations.firstNumber = 0;
+        operations.operator = "+";
+        operations.secondNumber = 0;
+      }
     }
 
     if (button.classList.contains("clear")) {
       document.getElementById("display").innerHTML = "";
+      operations.firstNumber = 0;
+      operations.operator = "+";
+      operations.secondNumber = 0;
     }
 
     if (button.classList.contains("equal")) {
