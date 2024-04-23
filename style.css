@@ -115,7 +115,8 @@ body {
 .number,
 .equal,
 .clear,
-.backspace {
+.backspace,
+.decimal {
     width: 45px;
     height: 45px;
     border-radius: 50%;
@@ -192,7 +193,8 @@ body {
 
 .operator,
 .clear,
-.backspace {
+.backspace,
+.decimal {
     color: var(--color-orange);
 }
 
@@ -203,7 +205,9 @@ body {
 .clear:active,
 .clear:hover,
 .backspace:active,
-.backspace:hover {
+.backspace:hover,
+.decimal:active,
+.decimal:hover {
     box-shadow: var(--color-inset-shadow);
 }
 

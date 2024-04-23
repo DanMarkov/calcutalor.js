@@ -143,7 +143,8 @@ function operate(a, b, operator) {
 let operations = {
   firstNumber: 0,
   operator: "+",
-  secondNumber: 0
+  secondNumber: 0,
+  decimal: "0"
 }
 
 // numbers.forEach(number => number.addEventListener('click', () => {
@@ -165,11 +166,19 @@ let operations = {
 //     operations.secondNumber = number.id;
 // }));
 
+const round = (n, decimals = 4) => Number(`${Math.round(`${n}e${decimals}`)}e-${decimals}`);
+
 
 buttons.forEach(button => button.addEventListener('click', () => {
     for (i=3; i<14; i++) {
       if (button.classList.contains("operator")) {
         buttons[i].classList.toggle("secondNumberClicked");
+      }
+    }
+
+    for (i = 14; i<18; i++) {
+      if (button.classList.contains("operator")) {
+        buttons[i].classList.toggle("smallBugFixer");
       }
     }
 
@@ -196,6 +205,13 @@ buttons.forEach(button => button.addEventListener('click', () => {
     } else if (button.classList.contains("operator")) {
       document.getElementById("display").innerHTML = button.id;
       operations.operator = button.id;
+      buttons[2].classList.toggle("smallBugFixer");
+
+
+      // if (!(operations.firstNumber === 0) && !(operations.secondNumber === 0)) {
+      //   document.getElementById("display").innerHTML = round(operate(operations.firstNumber, operations.secondNumber, operations.operator));
+      //   console.log(round(operate(operations.firstNumber, operations.secondNumber, operations.operator)));
+      // }
     }
 
     if (button.classList.contains("backspace")) {
@@ -217,26 +233,38 @@ buttons.forEach(button => button.addEventListener('click', () => {
       operations.secondNumber = 0;
     }
 
+    if (button.classList.contains("decimal")) {
+      if (document.getElementById("display").innerHTML === "Calculator" || !Number.isInteger(+document.getElementById("display").innerHTML) || document.getElementById("display").innerHTML === "" ) {
+        document.getElementById("display").innerHTML = "0";
+      }
+      document.getElementById("display").innerHTML += button.id;
+      operations.decimal = button.id;
+
+      // if (.includes('.'))
+    }
+
     if (button.classList.contains("equal")) {
       button.classList.add("smallBugFixer");
-      document.getElementById("display").innerHTML = operate(operations.firstNumber, operations.secondNumber, operations.operator);
-      console.log(operate(operations.firstNumber, operations.secondNumber, operations.operator));
-      // console.log("Hello!");
+      document.getElementById("display").innerHTML = round(operate(operations.firstNumber, operations.secondNumber, operations.operator));
+      console.log(round(operate(operations.firstNumber, operations.secondNumber, operations.operator)));
+
     }
+
+    if (document.getElementById("display").innerHTML === "NaN") {
+      document.getElementById("display").innerHTML = "ERROR!";
+    }
+
 
 }));
 
 
 
-// console.log(displayFirstNumber);
-
-
-// if (typeof operations.firstNumber === "string" && typeof operations.operator === "string" && typeof operations.secondNumber === "string") {
-//   // operate(displayFirstNumber, displaySecondNumber, displayOperator);
-//   // console.log("Hello!");
+// function appendDot() {
+//   if (currentOperand.includes('.')) return; // Prevent multiple decimals
+//   if (currentOperand === '') currentOperand = '0'; // If empty, start with '0.'
+//   currentOperand += '.';
+//   updateDisplay();
 // }
-
-
 
 
 // numbers.addEventListener('click', () => {
